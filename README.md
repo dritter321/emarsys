@@ -1,4 +1,6 @@
-# Emarsys homework assignment
-- Please find the queries for the SQL asignments in the ./sql folder
-- The rest of the repository is for the Due Data Calculator assignment.
+# Emarsys SQL assignment
+- Please find the queries for the SQL assignments in the ./sql subdirectory.
+- You will also find the corresponding guidance beside the scripts in ./sql/sql_readme.md
+
+# Emarsys Due Date Calculator assignment
 
