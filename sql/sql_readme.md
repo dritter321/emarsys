@@ -29,3 +29,12 @@ The table has the following schema:
 
 ## Task 3
 Write a query that calculates the open rate of each campaign.
+
+
+# Local Testing
+You can create, populate, and verify SQLite database with the two tables needed with the following command:
+`python create_sqlite_marketing_data_db.py`
+You can then run the queries on the database using the following commands:
+`python execute_task_01.py`
+`python execute_task_02.py`
+`python execute_task_03.py`
