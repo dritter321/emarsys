@@ -24,3 +24,9 @@ Carbon, Joda, etc.) or hidden functionalities of the built-in methods.
 <br>• Including automated tests to your solution is a plus.
 <br>• Test-driven (TDD) solutions are especially welcome.
 <br>• Clean Code (by Robert. C. Martin) makes us happy.
+
+## Local Testing
+<br>You can test the CalculateDueDate method by running the following command in the terminal:
+<br>`python calculate_due_date.py`
+<br>And you can run the unit tests with:
+<br>`python -m unittest discover -s tests -p "test_*.py"`

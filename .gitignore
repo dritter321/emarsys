@@ -3,3 +3,5 @@
 sql/utils/__pycache__/
 marketing_data.db
 sql/tests/__pycache__/
+tests/__pycache__/
+__pycache__/

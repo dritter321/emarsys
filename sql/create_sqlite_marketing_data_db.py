@@ -3,11 +3,10 @@ import random
 import datetime
 from utils.event_utils import generate_delayed_random_event_time
 
-# Connect to SQLite database (it will create the database file if it doesn't exist)
+
 connection = sqlite3.connect("marketing_data.db")
 cursor = connection.cursor()
 
-# Create the table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS marketing_email_sent (
     campaign_id INTEGER,
@@ -17,7 +16,6 @@ CREATE TABLE IF NOT EXISTS marketing_email_sent (
 )
 """)
 
-# Remove all existing entries from the table (if the database already exists)
 try:
     cursor.execute("DELETE FROM marketing_email_sent")
     print("Existing entries removed from marketing_email_sent table.")
@@ -39,7 +37,6 @@ for campaign_id, user_id in selected_pairs:
     event_time = random_time.strftime('%Y-%m-%d %H:%M:%S')
     entries.append((campaign_id, user_id, event_time))
 
-# Insert entries
 cursor.executemany("INSERT INTO marketing_email_sent (campaign_id, user_id, event_time) VALUES (?, ?, ?)", entries)
 print("Successfully populated marketing_data.db")
 
@@ -56,14 +53,13 @@ for row in rows:
 
 connection.commit()
 
-# Remove all existing entries from the table (if the database already exists)
+# Code section for marketing_email_opened
 try:
     cursor.execute("DELETE FROM marketing_email_opened")
     print("Existing entries removed from marketing_email_opened table.")
 except:
     pass
 
-# Create a new table 'email_opened'
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS marketing_email_opened (
         campaign_id INTEGER,
@@ -72,11 +68,10 @@ cursor.execute("""
     )
 """)
 
-# Read all entries from the 'marketing_email_opened' table
 cursor.execute("SELECT * FROM marketing_email_sent")
 all_entries = cursor.fetchall()
 
-# Decide the random percentage (between 30% and 70%) of entries to copy
+# Decide the random percentage (between 30% and 70%)
 percentage = random.uniform(0.3, 0.7)
 number_to_copy = int(len(all_entries) * percentage)
 
@@ -89,13 +84,11 @@ email_opened_entries = [
     for campaign_id, user_id, event_time in entries_to_copy
 ]
 
-# Insert the new entries into the email_opened table
 cursor.executemany("INSERT INTO marketing_email_opened (campaign_id, user_id, event_time) VALUES (?, ?, ?)", email_opened_entries)
 
-# Commit the transaction and close the connection
 connection.commit()
 connection.close()
 
-print(f"{len(email_opened_entries)} entries were copied to the 'email_opened' table (approximately {percentage*100:.2f}%).")
+print(f"{len(email_opened_entries)} entries were copied to 'email_opened' ({percentage*100:.2f}%).")
 
 print("marketing_data.db created with tables: marketing_email_sent and marketing_email_opened")
