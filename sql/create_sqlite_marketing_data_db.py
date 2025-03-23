@@ -12,7 +12,8 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS marketing_email_sent (
     campaign_id INTEGER,
     user_id INTEGER,
-    event_time TIMESTAMP
+    event_time TIMESTAMP,
+    UNIQUE(campaign_id, user_id)
 )
 """)
 
@@ -23,11 +24,16 @@ try:
 except:
     pass
 
-# Generate 100 entries
+## Ensuring that only unqiue (campaign_id, user_id) pairs are inserted
+number_of_campaigns = 20
+number_of_users = 200
+size_of_sample = 1000
+campaign_ids = range(1, number_of_campaigns)
+user_ids = range(1, number_of_users)
+all_pairs = [(campaign_id, user_id) for campaign_id in campaign_ids for user_id in user_ids]
+selected_pairs = random.sample(all_pairs, size_of_sample)
 entries = []
-for _ in range(10000):
-    campaign_id = random.randint(1, 10)
-    user_id = random.randint(1, 100)
+for campaign_id, user_id in selected_pairs:
     random_days = random.randint(0, 365)
     random_time = datetime.datetime.now() - datetime.timedelta(days=random_days)
     event_time = random_time.strftime('%Y-%m-%d %H:%M:%S')
