@@ -26,9 +26,15 @@ def main():
         # Execute the loaded query
         cursor.execute(query)
 
+        # Get column headers
+        column_headers = [description[0] for description in cursor.description]
+
         # Fetch results (if the query returns data)
         results = cursor.fetchall()
         print("Query executed successfully. Results:")
+
+        # Display column headers
+        print(column_headers)
 
         # Display results
         for row in results:

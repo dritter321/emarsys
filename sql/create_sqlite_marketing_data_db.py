@@ -1,7 +1,7 @@
 import sqlite3
 import random
 import datetime
-from selectors import SelectSelector
+from utils.event_utils import generate_delayed_random_event_time
 
 # Connect to SQLite database (it will create the database file if it doesn't exist)
 connection = sqlite3.connect("marketing_data.db")
@@ -50,18 +50,6 @@ for row in rows:
 
 connection.commit()
 
-# Get the current time
-current_time = datetime.datetime.now()
-
-# Function to calculate a random datetime between now and the original event time
-def generate_random_event_time(original_time):
-    # Convert the original event_time from string to datetime
-    original_datetime = datetime.datetime.strptime(original_time, "%Y-%m-%d %H:%M:%S")
-
-    # Ensure the new timestamp falls between now and the original time
-    random_time_delta = datetime.timedelta(seconds=random.randint(0, int((current_time - original_datetime).total_seconds())))
-    return (current_time - random_time_delta).strftime("%Y-%m-%d %H:%M:%S")
-
 # Remove all existing entries from the table (if the database already exists)
 try:
     cursor.execute("DELETE FROM marketing_email_opened")
@@ -91,7 +79,7 @@ entries_to_copy = random.sample(all_entries, number_to_copy)
 
 # Create the new entries for email_opened with adjusted event_time
 email_opened_entries = [
-    (campaign_id, user_id, generate_random_event_time(event_time))
+    (campaign_id, user_id, generate_delayed_random_event_time(event_time))
     for campaign_id, user_id, event_time in entries_to_copy
 ]
 
