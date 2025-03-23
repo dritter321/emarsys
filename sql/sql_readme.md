@@ -32,6 +32,7 @@ Write a query that calculates the open rate of each campaign.
 
 
 # Local Testing
+The SQL queries follow the syntax of Sqlite3.
 You can create, populate, and verify SQLite database with the two tables needed with the following command:
 <br>`python create_sqlite_marketing_data_db.py`
 <br>You can then run the queries on the database using the following commands:
