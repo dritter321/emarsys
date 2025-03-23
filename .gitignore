@@ -2,3 +2,4 @@
 .DS_Store
 sql/utils/__pycache__/
 marketing_data.db
+sql/tests/__pycache__/
