@@ -25,9 +25,9 @@ except:
     pass
 
 ## Ensuring that only unqiue (campaign_id, user_id) pairs are inserted
-number_of_campaigns = 20
-number_of_users = 200
-size_of_sample = 1000
+number_of_campaigns = 25
+number_of_users = 800
+size_of_sample = 10000
 campaign_ids = range(1, number_of_campaigns)
 user_ids = range(1, number_of_users)
 all_pairs = [(campaign_id, user_id) for campaign_id in campaign_ids for user_id in user_ids]
